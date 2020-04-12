@@ -1,22 +1,22 @@
 //
-//  SingleTopicRequest.swift
+//  SingleUserRequest.swift
+//  DiscourseClient
 //
-//  Created by Ignacio Garcia Sainz on 17/07/2019.
-//  Copyright © 2019 KeepCoding. All rights reserved.
-//  Revisado por Roberto Garrido on 8 de Marzo de 2020
+//  Created by Hadrian Grille Negreira on 11/04/2020.
+//  Copyright © 2020 Roberto Garrido. All rights reserved.
 //
 
 import Foundation
 
 // TODO: Implementar las propiedades de esta request
-struct SingleTopicRequest: APIRequest {
+struct SingleUserRequest: APIRequest {
     
-    typealias Response = SingleTopicResponse
+    typealias Response = SingleUserResponse
     
-    let id: Int
+    let userName: String
     
-    init(id: Int) {
-        self.id = id
+    init(userName: String) {
+        self.userName = userName
     }
     
     var method: Method {
@@ -24,7 +24,7 @@ struct SingleTopicRequest: APIRequest {
     }
     
     var path: String {
-        return "/t/\(self.id).json"
+        return "/users/\(self.userName).json"
     }
     
     var parameters: [String : String] {

@@ -1,17 +1,17 @@
 //
-//  SingleTopicRequest.swift
+//  DeleteTopicRequest.swift
+//  DiscourseClient
 //
-//  Created by Ignacio Garcia Sainz on 17/07/2019.
-//  Copyright © 2019 KeepCoding. All rights reserved.
-//  Revisado por Roberto Garrido on 8 de Marzo de 2020
+//  Created by Hadrian Grille Negreira on 07/04/2020.
+//  Copyright © 2020 Roberto Garrido. All rights reserved.
 //
 
 import Foundation
 
-// TODO: Implementar las propiedades de esta request
-struct SingleTopicRequest: APIRequest {
+/// Implementación de la request que borra un topic
+struct DeleteTopicRequest: APIRequest {
     
-    typealias Response = SingleTopicResponse
+    typealias Response = DeleteTopicResponse
     
     let id: Int
     
@@ -20,7 +20,7 @@ struct SingleTopicRequest: APIRequest {
     }
     
     var method: Method {
-        return .GET
+        return .DELETE
     }
     
     var path: String {

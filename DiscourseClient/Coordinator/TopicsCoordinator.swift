@@ -42,6 +42,12 @@ class TopicsCoordinator: Coordinator {
 
 extension TopicsCoordinator: TopicsCoordinatorDelegate {
     func didSelect(topic: Topic) {
+        let topicDetailViewModel = TopicDetailViewModel(topicID: topic.id, topicDetailDataManager: topicDetailDataManager)
+        let topicDetailViewController = TopicDetailViewController(viewModel: topicDetailViewModel)
+        topicDetailViewController.title = NSLocalizedString("Detail Topic \(topic.id)", comment: "")
+        topicDetailViewModel.viewDelegate = topicDetailViewController
+        topicDetailViewModel.coordinatorDelegate = self
+        presenter.pushViewController(topicDetailViewController, animated: false)
         /** TODO: Lanzar módulo TopicDetail
          Para ello tendrás que crear TopicDetailViewModel, TopicDetailViewController.
          Asignar "self" como coordinatorDelegate del módulo: Queremos escuchar eventos que requieren navegación desde ese módulo.
@@ -74,6 +80,10 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
 
 extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
     func topicDetailBackButtonTapped() {
+        presenter.popViewController(animated: true)
+    }
+    func topicDetailDeleteButtonTapped() {
+        
         presenter.popViewController(animated: true)
     }
 }
