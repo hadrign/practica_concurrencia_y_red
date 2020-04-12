@@ -52,7 +52,14 @@ class TopicsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //viewModel.viewWasLoaded()
+        print("+++++++")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.viewWasLoaded()
+        print("******")
     }
 
     @objc func plusButtonTapped() {
