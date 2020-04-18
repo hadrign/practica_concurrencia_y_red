@@ -12,6 +12,9 @@ struct SingleUserResponse: Codable {
     let user: user
 }
 
+/*
+ Era can_edit_name lo que se pedía, no can_edit_username.
+ */
 struct user: Codable {
     let id: Int
     let username: String

@@ -42,6 +42,10 @@ class TopicDetailViewModel {
             switch result {
             case .success(let topicDetail):
                 //Preguntar se esto no tendriamos que bloquear el hilo principal.
+                /*
+                 No necesitamos main.async porque SessionAPI llama al closure siempre con main.async, así que lo estaríamos haciendo
+                 dos veces. Como lo tienes, está bien.
+                 */
                 guard let response = topicDetail else {return}
                 self?.labelTopicIDText = String(response.id)
                 self?.labelTopicNameText = response.title
@@ -68,7 +72,7 @@ class TopicDetailViewModel {
     func deleteButtonTapped(ID: Int) {
         topicDetailDataManager.deleteTopic(id: ID) {[weak self] (result) in
             switch result {
-            case .success(let topicDeleted):
+            case .success:
                 self?.coordinatorDelegate?.topicDetailDeleteButtonTapped()
             case .failure(let error):
                 print(error)

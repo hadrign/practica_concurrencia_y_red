@@ -42,16 +42,24 @@ class UserDetailViewModel {
             switch result {
             case .success(let userDetail):
                 //Preguntar se esto no tendriamos que bloquear el hilo principal.
+                /*
+                 No necesitamos main.async porque SessionAPI llama al closure siempre con main.async, así que lo estaríamos haciendo
+                 dos veces. Como lo tienes, está bien.
+                 */
                 guard let response = userDetail else {return}
                 self?.labelUserIDText = String(response.user.id)
                 self?.labelUserNameText = response.user.username
+                /*
+                 Era canEditName lo que se pedía, no canEditUsername
+                 Además, si response.user.canEditUsername no es optional, no tiene sentido compararlo con nil
+                 */
                 if response.user.canEditUsername != nil {
                     self?.buttonCanEdit = response.user.canEditUsername
                     //self?.buttonCanEdit = true
                 } else {
                     self?.buttonCanEdit = false
                 }
-                
+
                 self?.viewDelegate?.userDetailFetched()
             case .failure(let error):
                 print(error)
@@ -68,7 +76,7 @@ class UserDetailViewModel {
     func changeButtonTapped(userName: String, newUserName: String) {
         userDetailDataManager.changeUserName(userName: userName, newUserName: newUserName) {[weak self] (result) in
             switch result {
-            case .success(let userNameChanged):
+            case .success:
                 self?.viewDelegate?.usernameChanged()
             case .failure(let error):
                 print(error)

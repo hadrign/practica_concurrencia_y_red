@@ -31,6 +31,10 @@ class CategoriesViewModel {
             case .success(let categoriesResponse):
                 guard let categoriesUnw = categoriesResponse?.categoryList.categories else {return}
                 //No se si aqui necesitaremos no bloquear el hilo principal
+                /*
+                 No necesitamos main.async porque SessionAPI llama al closure siempre con main.async, así que lo estaríamos haciendo
+                 dos veces. Como lo tienes, está bien.
+                 */
                 categoriesUnw.forEach({categorie in self?.categoriesViewModels.append(CategoriesCellViewModel.init(category: categorie))})
                 self?.viewDelegate?.categoriesFetched()
             case .failure(let error):

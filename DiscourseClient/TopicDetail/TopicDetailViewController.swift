@@ -146,6 +146,15 @@ class TopicDetailViewController: UIViewController {
         labelTopicID.text = viewModel.labelTopicIDText
         labelTopicTitle.text = viewModel.labelTopicNameText
         labelTopicCountPosts.text = viewModel.lableTopicNumberPostsText
+        /*
+         Esta lógica de si buttonCanDelete es nil lo tomamos como false debería ir en el ViewModel, de forma que podamos testearla
+         con un UnitTest en un futuro.
+         Es decir, viewModel.buttonCanDelete debería ser no-optional.
+         De todas formas, en lugar de exponer buttonCanDelete al ViewController, yo añadiría una variable viewModel.buttonDeleteTopicIsHidden sobre
+         la que ejecutamos esta misma lógica que pones aquí abajo.
+         De forma que todo esto de abajo quedaría como
+         buttonDeleteTopic.isHidden = viewModel.buttonDeleteTopicIsHidden
+         */
         canDelete = viewModel.buttonCanDelete ?? false
         if canDelete {
             buttonDeleteTopic.isHidden = false

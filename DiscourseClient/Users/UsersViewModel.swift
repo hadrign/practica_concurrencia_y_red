@@ -36,6 +36,10 @@ class UsersViewModel {
             case .success(let getUsersResponse):
                 guard let usersUnw = getUsersResponse?.directoryItems else {return}
                 //No se si aqui necesitaremos no bloquear el hilo principal
+                /*
+                 No necesitamos main.async porque SessionAPI llama al closure siempre con main.async, así que lo estaríamos haciendo
+                 dos veces. Como lo tienes, está bien.
+                 */
                 self?.userViewModels.removeAll()
                 usersUnw.forEach({user in self?.userViewModels.append(UserCellViewModel.init(user: user.user))})
                 self?.viewDelegate?.usersFetched()
